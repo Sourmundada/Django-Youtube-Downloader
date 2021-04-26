@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Upload Link | yTube{% endblock title %}
+
+
+{% block content %}
+
+
+    {% if yt_video %}
+    <div class="text-center">
+        <h2>{{ yt_video.title }}</h2>
+        <div class="embed-responsive embed-responsive-21by9">
+            <iframe class="embed-responsive-item" src="{{ embedlink }}" height="576px"></iframe>
+        </div>
+        
+        <table class="table table-hover table-bordered text-center mt-4 mb-2">
+            <tr class="text-center">
+                <th colspan="3">Video Download</th>
+            </tr>
+            <tr class="text-center">
+                <th>Quality</th>
+                <th>Type</th>
+                <th>Download</th>
+            </tr>
+            {% for video in yt_streams %}
+            <tr>
+                <td>{{ video.resolution }}</td>
+                <td>{{ video.mime_type }}</td>
+                <td><a href="{{ video.url }}" class="btn btn-primary">Download</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <table class="table table-hover table-bordered text-center mt-4 mb-2">
+            <tr class="text-center">
+                <th colspan="2">Audio Download</th>
+            </tr>
+            <tr class="text-center">
+                <th>Type</th>
+                <th>Download</th>
+            </tr>
+            {% for audio in yt_audio %}
+            <tr>
+                <td>{{ audio.mime_type }}</td>
+                <td><a href="{{ audio.url }}" class="btn btn-primary">Download</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+    {% else %}
+        <h3 class="text-center">Upload Link To See Download Options</h3>
+    {% endif %}
+
+
+{% endblock content %}
